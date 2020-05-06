@@ -1,10 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Button } from './components/Button';
-
-const Form = () => {
-  return <Button/>;
-};
+import App from './App';
 
 function createEl () {
   const el = document.createElement('div');
@@ -13,5 +9,5 @@ function createEl () {
 }
 
 export function setupUI (engine, el = createEl()) {
-  ReactDOM.render(<Form />, el);
+  ReactDOM.render(<App />, el);
 }
