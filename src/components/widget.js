@@ -3,6 +3,8 @@ import { observer } from 'mobx-react';
 import Draggable from 'react-draggable';
 
 
+const context = require.context('./widget-content/', true);
+
 export default observer(function Widget ({ widget }) {
   const { z } = widget;
 
@@ -22,12 +24,7 @@ export default observer(function Widget ({ widget }) {
     }
   };
 
-  const [ContentClass, SetContentClass] = useState();
-
-  useEffect(() => {
-    const ContentClass = React.lazy(() => import('./widget-content/' + widget.childPath));
-    SetContentClass(ContentClass);
-  }, [widget.childPath]);
+  const ContentClass = context('./' + widget.childPath).default;
 
   return (
     <Draggable
@@ -44,7 +41,7 @@ export default observer(function Widget ({ widget }) {
         <span>{widget.title}</span>
         <div style={styles.content}>
           <Suspense fallback={'loading'}>
-            {ContentClass ? <ContentClass grow={{ v: 'down', h: 'right' }}/> : null}
+            <ContentClass grow={{ v: 'down', h: 'right' }}/>
           </Suspense>
         </div>
       </div>
