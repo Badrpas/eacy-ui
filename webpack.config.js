@@ -3,6 +3,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode   : 'development',
   entry  : './src/main.js',
+  devtool: 'eval-source-map',
   module : {
     rules: [
       {
@@ -10,6 +11,13 @@ module.exports = {
         exclude: /node_modules/,
         use    : {
           loader: "babel-loader"
+        }
+      },
+      {
+        test   : /\.(ts|tsx)$/,
+        exclude: /node_modules/,
+        use    : {
+          loader: "ts-loader"
         }
       },
       {
@@ -21,6 +29,9 @@ module.exports = {
         ]
       }
     ]
+  },
+  resolve: {
+    extensions: [ '.ts', '.js' ],
   },
   plugins: [
     new HtmlWebPackPlugin({
